@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin – Menyhantering</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <h1>Menyhantering</h1>
+  <h2>Lägg till ny rätt</h2>
+  <form id="addForm">
+    <input type="text" id="title" placeholder="Titel" required />
+    <input type="text" id="description" placeholder="Beskrivning" />
+    <input type="number" id="price" placeholder="Pris" required />
+    <input type="text" id="imageUrl" placeholder="Bildlänk" />
+    <select id="category" required>
+      <option value="">Välj kategori</option>
+      <option value="Förrätt">Förrätt</option>
+      <option value="Varmrätt">Varmrätt</option>
+      <option value="Efterrätt">Efterrätt</option>
+      <option value="Dryck">Dryck</option>
+    </select>
+    <button type="submit">Lägg till</button>
+  </form>
+
+  <h2>Alla rätter</h2>
+    <div id="menu-container">Laddar meny...</div>
+
+  
+  <script type="module" src="./js/menu.js"></script>
+</body>
+</html>
