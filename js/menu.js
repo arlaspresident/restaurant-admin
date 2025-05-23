@@ -23,6 +23,35 @@ if (!token) {
         `;
         container.appendChild(div);
       });
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = btn.dataset.id;
+          const confirmed = confirm('Är du säker på att du vill ta bort denna rätt?');
+      
+          if (!confirmed) return;
+      
+          try {
+            const res = await fetch(`http://localhost:3000/api/menu/${id}`, {
+              method: 'DELETE',
+              headers: {
+                Authorization: 'Bearer ' + token
+              }
+            });
+      
+            if (res.ok) {
+              alert('Rätt borttagen');
+              location.reload();
+            } else {
+              const error = await res.json();
+              alert(error.error || 'Fel vid borttagning');
+            }
+          } catch (err) {
+            console.error('Fel vid DELETE:', err);
+            alert('Något gick fel');
+          }
+        });
+      });
+      
     })
     .catch(err => {
       console.error(err);
