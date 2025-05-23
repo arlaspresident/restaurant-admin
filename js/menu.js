@@ -1,5 +1,9 @@
 const token = localStorage.getItem('token');
 const container = document.getElementById('menu-container');
+const addForm = document.getElementById('addForm');
+
+let editMode = false;
+let editingId = null
 
 if (!token) {
   container.innerHTML = 'Inte inloggad. Gå till login';
@@ -18,11 +22,14 @@ if (!token) {
           <h3>${item.title} <small>(${item.category})</small></h3>
           <p>${item.description}</p>
           <p><strong>${item.price} kr</strong></p>
-           <button class="delete-btn" data-id="${item._id}">Radera</button>
+          <button class="edit-btn" data-id="${item._id}">Redigera</button>
+          <button class="delete-btn" data-id="${item._id}">Radera</button>
           <hr />
         `;
         container.appendChild(div);
       });
+
+      //delete knapp
       document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', async () => {
           const id = btn.dataset.id;
@@ -51,13 +58,31 @@ if (!token) {
           }
         });
       });
+
+      //edit knapp
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          const item = data.find(i => i._id === id);
+
+          // Fyll formulär
+          document.getElementById('title').value = item.title;
+          document.getElementById('description').value = item.description;
+          document.getElementById('price').value = item.price;
+          document.getElementById('imageUrl').value = item.imageUrl;
+          document.getElementById('category').value = item.category;
+
+          document.querySelector('#addForm button').textContent = 'Spara ändringar';
+          editMode = true;
+          editingId = id;
+        });
+      });
       
     })
     .catch(err => {
       console.error(err);
       container.innerHTML = 'Fel vid hämtning av meny';
     });
-    const addForm = document.getElementById('addForm');
 
   addForm.addEventListener('submit', async (e) => {
     e.preventDefault();
