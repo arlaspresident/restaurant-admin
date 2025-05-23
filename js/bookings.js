@@ -27,6 +27,35 @@ if (!token) {
           <p><em>${b.message || 'Ingen kommentar'}</em></p>
           <hr />
         `;
+        //delete knapp
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Radera';
+        deleteBtn.addEventListener('click', async () => {
+          const confirmed = confirm('Vill du verkligen ta bort bokningen?');
+          if (!confirmed) return;
+
+          try {
+            const res = await fetch(`http://localhost:3000/api/bookings/${b._id}`, {
+              method: 'DELETE',
+              headers: {
+                Authorization: 'Bearer ' + token
+              }
+            });
+            if (res.ok) {
+              alert('Bokning borttagen');
+              location.reload();
+            } else {
+              const err = await res.json();
+              alert(err.error || 'Fel vid borttagning');
+            }
+          } catch (err) {
+            console.error('Fel vid DELETE:', err);
+            alert('Något gick fel');
+          }
+        });
+
+        div.appendChild(deleteBtn);
+        div.appendChild(document.createElement('hr'));
         container.appendChild(div);
       });
     })

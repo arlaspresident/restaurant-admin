@@ -21,7 +21,7 @@ form.addEventListener('submit', async (e) => {
       message.textContent = 'Inloggning lyckades!';
       // gå vidare till adminpanel
       setTimeout(() => {
-        window.location.href = 'menu.html';
+        window.location.href = 'admin.html';
       }, 1000);
     } else {
       message.textContent = data.error || 'Inloggning misslyckades';
