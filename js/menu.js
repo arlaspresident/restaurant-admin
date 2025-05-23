@@ -3,7 +3,7 @@ const container = document.getElementById('menu-container');
 const addForm = document.getElementById('addForm');
 
 let editMode = false;
-let editingId = null
+let editingId = null;
 
 if (!token) {
   container.innerHTML = 'Inte inloggad. Gå till login';
@@ -96,8 +96,14 @@ if (!token) {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/api/menu', {
-        method: 'POST',
+        const url = editMode
+        ? `http://localhost:3000/api/menu/${editingId}`
+        : `http://localhost:3000/api/menu/`;
+
+        const method = editMode ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + token
@@ -108,7 +114,7 @@ if (!token) {
       const data = await res.json();
 
       if (res.ok) {
-        alert('Ny rätt tillagd');
+        alert(editMode ? 'Rätt uppdaterad' : 'Ny rätt tillagd');
         location.reload();
       } else {
         alert(data.error || 'Fel vid tillägg');
