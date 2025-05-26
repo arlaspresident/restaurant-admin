@@ -39,7 +39,7 @@ if (!token) {
           if (!confirmed) return;
       
           try {
-            const res = await fetch(`http://localhost:3000/api/menu/${id}`, {
+            const res = await fetch(`https://restaurant-backend-u697.onrender.com/api/menu/${id}`, {
               method: 'DELETE',
               headers: {
                 Authorization: 'Bearer ' + token
@@ -98,8 +98,8 @@ if (!token) {
 
     try {
         const url = editMode
-        ? `http://localhost:3000/api/menu/${editingId}`
-        : `http://localhost:3000/api/menu/`;
+        ? `https://restaurant-backend-u697.onrender.com/api/menu/${editingId}`
+        : `https://restaurant-backend-u697.onrender.com/api/menu/`;
 
         const method = editMode ? 'PUT' : 'POST';
 
