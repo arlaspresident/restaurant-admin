@@ -4,7 +4,7 @@ const container = document.getElementById('bookings-container');
 if (!token) {
   container.innerHTML = 'Inte inloggad. Gå till login.';
 } else {
-  fetch('http://localhost:3000/api/bookings', {
+  fetch('https://restaurant-backend-u697.onrender.com/api/bookings', {
     headers: {
       Authorization: 'Bearer ' + token
     }
@@ -36,7 +36,7 @@ if (!token) {
           if (!confirmed) return;
 
           try {
-            const res = await fetch(`http://localhost:3000/api/bookings/${b._id}`, {
+            const res = await fetch(`https://restaurant-backend-u697.onrender.com/api/bookings/${b._id}`, {
               method: 'DELETE',
               headers: {
                 Authorization: 'Bearer ' + token

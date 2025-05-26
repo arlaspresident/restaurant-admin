@@ -8,7 +8,7 @@ let editingId = null;
 if (!token) {
   container.innerHTML = 'Inte inloggad. Gå till login';
 } else {
-  fetch('http://localhost:3000/api/menu', {
+  fetch('https://restaurant-backend-u697.onrender.com/api/menu', {
     headers: {
       Authorization: 'Bearer ' + token
     }
