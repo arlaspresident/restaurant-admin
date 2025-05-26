@@ -2,8 +2,7 @@
   "name": "restaurant-admin",
   "version": "1.0.0",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build menu.html login.html bookings.html admin.html"
   },
   "keywords": [],
   "author": "",
