@@ -6,8 +6,11 @@
   <title>Admin – Menyhantering</title>
   <link rel="stylesheet" href="./css/style.css" />
 </head>
-<body>
+<body class="admin-bg">
+    <main class="menu-admin">
   <h1>Menyhantering</h1>
+
+  <section class="add-dish">
   <h2>Lägg till ny rätt</h2>
   <form id="addForm">
     <input type="text" id="title" placeholder="Titel" required />
@@ -23,10 +26,13 @@
     </select>
     <button type="submit">Lägg till</button>
   </form>
+</section>
 
+<section class="all-dishes">
   <h2>Alla rätter</h2>
     <div id="menu-container">Laddar meny...</div>
-
+</section>
+    </main>
   
   <script type="module" src="./js/menu.js"></script>
 </body>

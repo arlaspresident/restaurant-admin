@@ -20,6 +20,7 @@ if (!token) {
 
       bookings.forEach(b => {
         const div = document.createElement('div');
+        div.classList.add('booking-card');
         div.innerHTML = `
           <p><strong>${b.name}</strong> (${b.guests} pers)</p>
           <p>${b.date} kl ${b.time}</p>

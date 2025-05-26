@@ -18,6 +18,7 @@ if (!token) {
       container.innerHTML = '';
       data.forEach(item => {
         const div = document.createElement('div');
+        div.classList.add('menu-card');
         div.innerHTML = `
           <h3>${item.title} <small>(${item.category})</small></h3>
           <p>${item.description}</p>
