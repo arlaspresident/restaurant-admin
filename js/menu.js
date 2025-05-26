@@ -16,7 +16,21 @@ if (!token) {
     .then(res => res.json())
     .then(data => {
       container.innerHTML = '';
-      data.forEach(item => {
+
+      const grouped = data.reduce((acc, item) => {
+        if (!acc[item.category]) acc[item.category] = [];
+        acc[item.category].push(item);
+        return acc;
+      }, {});
+
+      for (const category in grouped) {
+        const section = document.createElement('section');
+        const heading = document.createElement('h2');
+        heading.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+        section.appendChild(heading);
+
+
+       grouped[category].forEach(item => {
         const div = document.createElement('div');
         div.classList.add('menu-card');
         div.innerHTML = `
@@ -27,8 +41,10 @@ if (!token) {
           <button class="delete-btn" data-id="${item._id}">Radera</button>
           <hr />
         `;
-        container.appendChild(div);
-      });
+        section.appendChild(div);
+    });
+        container.appendChild(section);
+      }
 
       //delete knapp
       document.querySelectorAll('.delete-btn').forEach(btn => {
