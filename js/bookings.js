@@ -2,15 +2,22 @@ const token = localStorage.getItem('token');
 const container = document.getElementById('bookings-container');
 
 if (!token) {
-  container.innerHTML = 'Inte inloggad. Gå till login.';
+  window.location.href = 'login.html';
 } else {
   fetch('https://restaurant-backend-u697.onrender.com/api/bookings', {
     headers: {
       Authorization: 'Bearer ' + token
     }
   })
-    .then(res => res.json())
-    .then(bookings => {
+  .then(async res => {
+    if (res.status === 403) {
+      alert('Din session har gått ut. Logga in igen.');
+      window.location.href = 'login.html';
+      return;
+    }
+    
+    const bookings = await res.json();
+
       if (!Array.isArray(bookings)) {
         container.innerHTML = 'Inga bokningar hittades.';
         return;

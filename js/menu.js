@@ -6,15 +6,21 @@ let editMode = false;
 let editingId = null;
 
 if (!token) {
-  container.innerHTML = 'Inte inloggad. Gå till login';
+    window.location.href = 'login.html';
 } else {
   fetch('https://restaurant-backend-u697.onrender.com/api/menu', {
     headers: {
       Authorization: 'Bearer ' + token
     }
   })
-    .then(res => res.json())
-    .then(data => {
+  .then(async res => {
+    if (res.status === 403) {
+      alert('Din session har gått ut. Logga in igen.');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const data = await res.json();
       container.innerHTML = '';
 
       const grouped = data.reduce((acc, item) => {
