@@ -12,7 +12,7 @@ Detta är adminpanelen för Noir & Sel, min fiktiva restaurang. Panelen används
 
 ## Testa själv
 För att se adminpanelen i funktion
-1. logga in på https://noirseladmin.netlify.app/login.html (användarnamn admin123, lösenord hemligt123)
+1. logga in på https://noirseladmin.netlify.app/login.html (användarnamn admin, lösenord hemligt123)
 2. du skickas vidare till /admin.html
 
 ## Live länk
