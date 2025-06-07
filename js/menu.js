@@ -98,6 +98,7 @@ if (!token) {
           document.querySelector('#addForm button').textContent = 'Spara ändringar';
           editMode = true;
           editingId = id;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       });
       
@@ -146,5 +147,12 @@ if (!token) {
       console.error('Fel vid POST:', err);
       alert('Något gick fel');
     }
+    
+});
+document.getElementById('cancelEdit').addEventListener('click', () => {
+  addForm.reset();
+  editMode = false;
+  editingId = null;
+  document.querySelector('#addForm button').textContent = 'Lägg till ny rätt';
   });
 }
