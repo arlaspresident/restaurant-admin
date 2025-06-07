@@ -1,3 +1,4 @@
+//hämtar token från localstorage 
 const token = localStorage.getItem('token');
 const container = document.getElementById('menu-container');
 const addForm = document.getElementById('addForm');
@@ -5,6 +6,7 @@ const addForm = document.getElementById('addForm');
 let editMode = false;
 let editingId = null;
 
+//om ingen token finns skicka användaren till inloggninssidan
 if (!token) {
     window.location.href = 'login.html';
 } else {
@@ -14,6 +16,7 @@ if (!token) {
     }
   })
   .then(async res => {
+    //om token ogiltig tvinga omdirigering till login
     if (res.status === 403) {
       alert('Din session har gått ut. Logga in igen.');
       window.location.href = 'login.html';
@@ -22,7 +25,7 @@ if (!token) {
 
     const data = await res.json();
       container.innerHTML = '';
-
+//grupperar menyn per kategori
       const grouped = data.reduce((acc, item) => {
         if (!acc[item.category]) acc[item.category] = [];
         acc[item.category].push(item);
@@ -88,7 +91,7 @@ if (!token) {
           const id = btn.dataset.id;
           const item = data.find(i => i._id === id);
 
-          // Fyll formulär
+          // fyll i formuläret
           document.getElementById('title').value = item.title;
           document.getElementById('description').value = item.description;
           document.getElementById('price').value = item.price;
@@ -98,6 +101,7 @@ if (!token) {
           document.querySelector('#addForm button').textContent = 'Spara ändringar';
           editMode = true;
           editingId = id;
+          //scrolla upp till formuläret
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       });
@@ -108,6 +112,7 @@ if (!token) {
       container.innerHTML = 'Fel vid hämtning av meny';
     });
 
+    // lägg till eller uppdatera en rätt
   addForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -149,6 +154,7 @@ if (!token) {
     }
     
 });
+//avbryt redigewring 
 document.getElementById('cancelEdit').addEventListener('click', () => {
   addForm.reset();
   editMode = false;

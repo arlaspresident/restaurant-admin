@@ -1,15 +1,19 @@
+//hämtar token från loalstorage
 const token = localStorage.getItem('token');
 const container = document.getElementById('bookings-container');
 
+//om token saknas skicka anövndaren till login
 if (!token) {
   window.location.href = 'login.html';
 } else {
+  //hämta bokningar från backend
   fetch('https://restaurant-backend-u697.onrender.com/api/bookings', {
     headers: {
       Authorization: 'Bearer ' + token
     }
   })
   .then(async res => {
+    //om ogiltig omdirigera till login
     if (res.status === 403) {
       alert('Din session har gått ut. Logga in igen.');
       window.location.href = 'login.html';
@@ -17,14 +21,14 @@ if (!token) {
     }
     
     const bookings = await res.json();
-
+ // om inga bokningar hittas
       if (!Array.isArray(bookings)) {
         container.innerHTML = 'Inga bokningar hittades.';
         return;
       }
 
       container.innerHTML = '';
-
+//loopa igenom bokningarna och visa varje i ett kort
       bookings.forEach(b => {
         const div = document.createElement('div');
         div.classList.add('booking-card');
@@ -61,7 +65,7 @@ if (!token) {
             alert('Något gick fel');
           }
         });
-
+//lägg tillknappen i kortet
         div.appendChild(deleteBtn);
         div.appendChild(document.createElement('hr'));
         container.appendChild(div);
